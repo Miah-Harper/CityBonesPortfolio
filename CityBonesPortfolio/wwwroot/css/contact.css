@@ -1,0 +1,14 @@
+﻿body {
+    background-image: url('/img/backgroundpic2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    object-fit: contain;
+    color: white;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
