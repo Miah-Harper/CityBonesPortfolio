@@ -30,7 +30,7 @@ namespace CityBonesPortfolio.Controllers
                 {
                     MailMessage msz = new MailMessage();
                     msz.From = new MailAddress(vm.Email);
-                    msz.To.Add("harpermiah93@gmail.com");
+                    msz.To.Add("calistaharper93@gmail.com");
                     msz.Subject = vm.Subject;
                     msz.Body = vm.Message;
 
