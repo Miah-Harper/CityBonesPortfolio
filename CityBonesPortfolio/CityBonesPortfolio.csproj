@@ -10,4 +10,10 @@
     <_ContentIncludedByDefault Remove="wwwroot\css\StyleSheet.css" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="MySql.Data" Version="9.3.0" />
+  </ItemGroup>
+
 </Project>

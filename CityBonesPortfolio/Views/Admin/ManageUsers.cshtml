@@ -1,0 +1,22 @@
+﻿@model List<CityBonesPortfolio.Models.User>
+
+<h2>Manager Users</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var user in Model)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>
