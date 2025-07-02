@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Crypto.Generators;
 using System.Configuration;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 namespace CityBonesPortfolio.Controllers
 {
@@ -105,6 +107,95 @@ namespace CityBonesPortfolio.Controllers
 
         public IActionResult Dashboard()
         {
+            return View();
+        }
+
+      
+
+        public IActionResult ForgotPassword(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                ModelState.AddModelError("", "Email is required.");
+                return View();
+            }
+
+            using var conn = new MySqlConnection(_config.GetConnectionString("citybones"));
+
+            var user = conn.QueryFirstOrDefault<User>(
+                "SELECT * FROM Users WHERE Email = @Email", new { Email = email });
+
+            if (user != null)
+            {
+                // Here you'd generate a reset token and email it making it a secure token
+               var token = Guid.NewGuid().ToString();
+               var expiry = DateTime.UtcNow.AddMinutes(20);
+
+                conn.Execute("UPDATE Users SET ResetToken = @Token, ResetTokenExpiry = @Expiry WHERE Email = @Email",
+                   new {Token = token, Expiry = expiry, Email = email});
+
+                //creating reset link
+                var resetLink = Url.Action("ResetPassword", "Account",
+                    new {token = token}, Request.Scheme);
+
+                SendResetEmail(email, resetLink);
+                
+            }
+
+            ViewBag.Message = "Password reset link has been sent!";
+            return View();
+        }
+
+        private void SendResetEmail(string email, string resetLink)
+        {
+            var from = "calistaharper93@gmail.com";
+            var password = "wvru hjcj ajff ospm"; //using app password
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential(from, password),
+                EnableSsl = true
+            };
+
+            var mail = new MailMessage(from, email)
+            {
+                Subject = "Reset Your Password",
+                Body = $"Click the link to reset your password: {resetLink}",
+                IsBodyHtml = false
+            };
+
+            smtpClient.Send(mail);
+        }
+
+        [HttpGet]
+        public IActionResult ResetPassword(string token)
+        {
+            return View(model: token); //passing token to view
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword(string token, string newPassword)
+        {
+            using var conn = new MySqlConnection(_config.GetConnectionString("citybones"));
+
+            var user = conn.QueryFirstOrDefault<User>(
+                "SELECT * FROM Users WHERE ResetToken = @Token AND ResetTokenExpiry > NOW()",
+                new {Token = token});
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid or expired link");
+                return View(model: token);
+            }
+
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
+
+            //updating password
+            conn.Execute("UPDATE Users SET PasswordHash = @Password, ResetToken = NULL, ResetTokenExpiry = NULL WHERE Id = @Id", 
+                new {Password = newPassword, Id = user.Id});
+
+            ViewBag.Message = "Password has successfully been reset!";
             return View();
         }
     }
