@@ -20,13 +20,16 @@ namespace CityBonesPortfolio.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login() => View();
+        public IActionResult Login()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Login(Login model)
         {
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) //if model is valid go to login page
                 return View(model);
 
             using var connection = new MySqlConnection(_config.GetConnectionString("citybones"));
@@ -42,7 +45,7 @@ namespace CityBonesPortfolio.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Email),
+                new Claim(ClaimTypes.Name, user.FullName),
                 new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User")
             };
 
@@ -51,7 +54,7 @@ namespace CityBonesPortfolio.Controllers
 
             await HttpContext.SignInAsync("MyCookieAuth", principal);
 
-            return user.IsAdmin ? RedirectToAction("Dashboard", "Admin") : RedirectToAction("Dasboard", "Account");
+            return user.IsAdmin ? RedirectToAction("Dashboard", "Admin") : RedirectToAction("Dashboard", "Account");
         }
 
         public async Task<IActionResult> Logout()
@@ -98,6 +101,11 @@ namespace CityBonesPortfolio.Controllers
             });
 
             return RedirectToAction("Login");
+        }
+
+        public IActionResult Dashboard()
+        {
+            return View();
         }
     }
 }

@@ -40,11 +40,15 @@ builder.Services.AddAuthentication("MyCookieAuth")
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddSession();
+
 void ConfigureServices(IServiceCollection services)
 {
     services.AddControllersWithViews();
 
     services.AddDistributedMemoryCache(); // Required for session
+
+
 
     services.AddSession(options =>
     {
@@ -84,6 +88,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
