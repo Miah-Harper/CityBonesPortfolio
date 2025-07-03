@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Crypto.Generators;
 using System.Configuration;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Claims;
@@ -15,10 +16,12 @@ namespace CityBonesPortfolio.Controllers
 
 
         private readonly IConfiguration _config;
+       
 
         public AccountController(IConfiguration config)
         {
             _config = config;
+            
         }
 
         [HttpGet]
@@ -38,7 +41,10 @@ namespace CityBonesPortfolio.Controllers
 
             var user = connection.QueryFirstOrDefault<User>("SELECT * FROM Users WHERE Email = @Email", new {model.Email});
 
-            if(user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PassWordHash))
+
+
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
             {
                 ModelState.AddModelError("", "Invalid e-mail or password");
                 return View(model);
@@ -193,7 +199,7 @@ namespace CityBonesPortfolio.Controllers
 
             //updating password
             conn.Execute("UPDATE Users SET PasswordHash = @Password, ResetToken = NULL, ResetTokenExpiry = NULL WHERE Id = @Id", 
-                new {Password = newPassword, Id = user.Id});
+                new {Password = hashedPassword, Id = user.Id});
 
             ViewBag.Message = "Password has successfully been reset!";
             return View();
