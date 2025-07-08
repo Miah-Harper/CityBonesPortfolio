@@ -1,4 +1,7 @@
-﻿  <head>
+﻿   @model IEnumerable<Market>
+ 
+
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -27,5 +30,34 @@
                 </div>
             </div>
         </nav>
+
+      
+
+<h2>Markets</h2>
+
+@if (User.IsInRole("Admin"))
+{
+    <a href="/Markets/Add" class="btn btn-success">+ Add Market</a>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var market in Model)
+        {
+            <tr>
+                <td>@market.Name</td>
+                <td>@market.Location</td>
+                <td>@market.Description</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 

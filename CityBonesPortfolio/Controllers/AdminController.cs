@@ -28,9 +28,10 @@ namespace CityBonesPortfolio.Controllers
             using (var connection = new MySqlConnection(conn))
             {
                 var users = connection.Query<User>("SELECT Id, Email FROM Users").ToList();
+                return View("Users");
             }
 
-            return View("Users");
+            
 
         }
 

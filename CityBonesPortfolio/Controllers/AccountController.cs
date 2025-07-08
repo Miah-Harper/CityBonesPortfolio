@@ -44,7 +44,7 @@ namespace CityBonesPortfolio.Controllers
 
 
 
-            if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
+            if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash)) //checking if entered password matches the hashed password in database
             {
                 ModelState.AddModelError("", "Invalid e-mail or password");
                 return View(model);
@@ -54,7 +54,10 @@ namespace CityBonesPortfolio.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.FullName),
-                new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User")
+                //new Claim(ClaimTypes.Role, user.IsAdmin ? "Admin" : "User")
+                new Claim(ClaimTypes.Role,
+                user.Email == "calistaharper93@gmail.com" || user.Email == "harpermiah93@gmail.com"
+                ? "Admin" : "User")
             };
 
             var identity = new ClaimsIdentity(claims, "MyCookieAuth");
@@ -62,7 +65,15 @@ namespace CityBonesPortfolio.Controllers
 
             await HttpContext.SignInAsync("MyCookieAuth", principal);
 
-            return user.IsAdmin ? RedirectToAction("Dashboard", "Admin") : RedirectToAction("Dashboard", "Account");
+            //return user.IsAdmin ? RedirectToAction("Dashboard", "Admin") : RedirectToAction("Dashboard", "Account");
+            if (user.Email == "calistaharper93@gmail.com" || user.Email == "harpermiah93@gmail.com")
+            {
+                return RedirectToAction("Index", "Admin"); // Or Dashboard, if you want to keep that
+            }
+            else
+            {
+                return RedirectToAction("Index", "Markets"); // Or Dashboard for Account
+            }
         }
 
         public async Task<IActionResult> Logout()

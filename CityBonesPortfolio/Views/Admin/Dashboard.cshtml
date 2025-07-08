@@ -1,1 +1,6 @@
 ﻿<h2>Welcome to the Dashboard!</h2>
+@if (User.IsInRole("Admin"))
+{
+    <a href="/Markets/Add" class="btn btn-primary">Add New Market</a>
+}
+
