@@ -27,15 +27,19 @@ namespace CityBonesPortfolio.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            return View(new Login());
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(Login model)
         {
 
-            if (!ModelState.IsValid) //if model is valid go to login page
+            if (!ModelState.IsValid)
+            {
                 return View(model);
+            } //if model is valid go to login page
+               
 
             using var connection = new MySqlConnection(_config.GetConnectionString("citybones"));
 
@@ -44,7 +48,8 @@ namespace CityBonesPortfolio.Controllers
 
 
 
-            if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash)) //checking if entered password matches the hashed password in database
+            if (user == null || string.IsNullOrEmpty(user.PasswordHash)
+              || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash)) //checking if entered password matches the hashed password in database
             {
                 ModelState.AddModelError("", "Invalid e-mail or password");
                 return View(model);
@@ -68,11 +73,11 @@ namespace CityBonesPortfolio.Controllers
             //return user.IsAdmin ? RedirectToAction("Dashboard", "Admin") : RedirectToAction("Dashboard", "Account");
             if (user.Email == "calistaharper93@gmail.com" || user.Email == "harpermiah93@gmail.com")
             {
-                return RedirectToAction("Index", "Admin"); // Or Dashboard, if you want to keep that
+                return RedirectToAction("Dashboard", "Admin"); 
             }
             else
             {
-                return RedirectToAction("Index", "Markets"); // Or Dashboard for Account
+                return RedirectToAction("Dashboard", "Account"); 
             }
         }
 

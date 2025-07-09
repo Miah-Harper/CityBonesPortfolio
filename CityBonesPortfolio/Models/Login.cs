@@ -4,11 +4,11 @@ namespace CityBonesPortfolio.Models
 {
     public class Login
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email")]
         public string? Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Password is required")]
         [DataType(DataType.Password)]
         public string? Password { get; set; }
 
