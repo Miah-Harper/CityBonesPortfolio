@@ -1,0 +1,41 @@
+﻿@model ProductViewModel
+
+@{
+    ViewData["Title"] = "Add New Product";
+}
+
+<h2>Add New Product</h2>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data"> @*enctype="multipart/form-data" is required for file uploads*@
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Price"></label>
+        <input asp-for="Price" type="number" step="0.01" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Image">Product Image</label>
+        <input asp-for="Image" type="file" />
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+    <button type="submit">Add Product</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

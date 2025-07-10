@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Product>
+
+@foreach (var product in Model)
+{
+    <div>
+        <h3>@product.Name</h3>
+        <img src="@Url.Action("GetImage", "Product", new { id = product.Id })" width="200" />
+        <p>@product.Description</p>
+        <p>Price: $@product.Price</p>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning">Edit</a>
+
+            <form asp-action="Delete" asp-route-id="@product.Id" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this product?');">Delete</button>
+            </form>
+        }
+    </div>
+}
+

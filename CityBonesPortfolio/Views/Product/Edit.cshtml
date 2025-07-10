@@ -1,0 +1,32 @@
+﻿@model ProductViewModel
+
+<h2>Edit Product</h2>
+
+<form asp-action="Edit" asp-route-id="@ViewBag.ProductId" method="post" enctype="multipart/form-data">
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+
+    <div>
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description"></textarea>
+        <span asp-validation-for="Description"></span>
+    </div>
+
+    <div>
+        <label asp-for="Price"></label>
+        <input asp-for="Price" type="number" step="0.01" />
+        <span asp-validation-for="Price"></span>
+    </div>
+
+    <div>
+        <label asp-for="Image">Change Image (optional)</label>
+        <input asp-for="Image" type="file" />
+        <span asp-validation-for="Image"></span>
+    </div>
+
+    <button type="submit">Save Changes</button>
+</form>
+
