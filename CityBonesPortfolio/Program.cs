@@ -12,6 +12,10 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 // -------------------------
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IMarketRepository, MarketRepository>();
+builder.Services.AddScoped<IProductRepository>(sp =>
+    new ProductRepository(builder.Configuration.GetConnectionString("citybones")));
+builder.Services.AddScoped<IUserProductRepository, UserProductRepository>();
+
 
 // -------------------------
 // Session Middleware

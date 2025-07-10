@@ -47,15 +47,15 @@ namespace CityBonesPortfolio.Controllers
                 Name = model.Name,
                 Description = model.Description,
                 Price = model.Price,
-                FileName = model.Image.FileName,
+                ImageFileName = model.Image.FileName,
                 ContentType = model.Image.ContentType,
                 ImageData = memoryStream.ToArray()
             };
 
             using var connection = new MySqlConnection(_config.GetConnectionString("citybones"));
 
-            string sql = @"INSERT INTO Product (Name, Description, Price, FileName, ContentType, ImageData)
-                VALUES (@Name, @Description, @Price, @FileName, @ContentType, @ImageData);";
+            string sql = @"INSERT INTO Product (Name, Description, Price, ImageFileName, ContentType, ImageData)
+                VALUES (@Name, @Description, @Price, @ImageFileName, @ContentType, @ImageData);";
 
             await connection.ExecuteAsync(sql, product);
 
@@ -88,7 +88,7 @@ namespace CityBonesPortfolio.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             using var conn = new MySqlConnection(_config.GetConnectionString("citybones"));
-            var product = await conn.QueryFirstOrDefaultAsync<Product>("SELECT * FROM Product WHERE Id = @Id," +
+            var product = await conn.QueryFirstOrDefaultAsync<Product>("SELECT * FROM Product WHERE Id = @Id" ,
                 new { Id = id});
 
             if(product == null)
@@ -120,15 +120,15 @@ namespace CityBonesPortfolio.Controllers
                 using var ms = new MemoryStream();
                 await model.Image.CopyToAsync(ms);
 
-                string sql = @"UPDATE Products SET Name = @Name, Description = @Description, Price = @Price,
-                FileName = @FileName, ContentType = @ContentType, ImageData = @ImageData WHERE Id = @Id";
+                string sql = @"UPDATE Product SET Name = @Name, Description = @Description, Price = @Price,
+                ImageFileName = @ImageFileName, ContentType = @ContentType, ImageData = @ImageData WHERE Id = @Id";
 
                 await connection.ExecuteAsync(sql, new
                 {
                     Name = model.Name,
                     Description = model.Description,
                     Price = model.Price,
-                    FileName = model.Image.FileName,
+                    ImageFileName = model.Image.FileName,
                     ContentType = model.Image.ContentType,
                     ImageData = ms.ToArray(),
                     Id = id
@@ -162,5 +162,7 @@ namespace CityBonesPortfolio.Controllers
                 new { Id = id });
             return RedirectToAction("Index");
         }
+
+    
     }
 }

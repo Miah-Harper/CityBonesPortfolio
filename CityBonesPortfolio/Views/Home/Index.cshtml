@@ -1,341 +1,39 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@model IEnumerable<CityBonesPortfolio.Models.Product>
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Home</title>
+    <meta charset="UTF-8">
+    <title>CityBones | Home</title>
+    <link rel="stylesheet" href="~/css/HomePage.css" />
 </head>
-
-<body class="w3-light-grey w3-content" style="max-width:1600px">
-
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
-  <div class="w3-container">
-    <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
-      <i class="fa fa-remove"></i>
-    </a>
-    
-    <img src="/img/cityboneslogo.jpeg" style="width:45%;" class="w3-round"><br><br>
-    <h4><b>CITY BONES</b></h4>
-  </div>
-  
-  <div class="w3-bar-block">
-    <a href="#portfolio" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>PORTFOLIO</a> 
-    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>ABOUT</a> 
-    <a href="https://localhost:7279/Markets" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw w3-margin-right"></i>MARKETS</a>
-    <a href="https://localhost:7279/Contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
-    <a href="https://localhost:7279/account/login" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>LOGIN</a>
-    <a href="https://localhost:7279/account/register" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>REGISTER</a>
-  
+<body>
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <img src="~/img/cityboneslogo.jpeg" alt="CityBones Logo" />
+        </div>
       
-  </div>
-  
-  <div class="w3-panel w3-large">
-      <a href="https://www.facebook.com/profile.php?id=100022769647644"> 
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    </a>
-    <a href="https://www.instagram.com/city_bones/">
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-        </a>
-  </div>
-</nav>
-
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px">
-
-  <!-- Header -->
-  <header id="portfolio">
-    <a href="#"><img src="/img/cityboneslogo.jpeg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
-    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
-    <div class="w3-container">
-    
-    <div class="w3-section w3-bottombar w3-padding-16">
-  
-  
-    </div>
-  </header>
-  
-  <!-- First Photo Grid-->
-  <div id="page1" class="page" style="display: block;">
-  <div class="w3-row-padding">
-    <div class="w3-third w3-container w3-margin-bottom">
-      <img src="/img/CrystallizedOpposumSkull.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
-      <div class="w3-container w3-white">
-        <p><b>Crystallized Opposum Skull</b></p>
-        <p>Ethically sourced Opposum Skull using crystals painted in gold.</p>
-      </div>
-    </div>
-    <div class="w3-third w3-container w3-margin-bottom">
-      <img src="/img/horsevertabraegreen.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
-      <div class="w3-container w3-white">
-        <p><b>Horse Vertabrae</b></p>
-        <p>Ethically sourced Horse Vertabrae using dried and preserved flowers.</p>
-      </div>
-    </div>
-    <div class="w3-third w3-container">
-      <img src="/img/HorseVertabraeyellow.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
-      <div class="w3-container w3-white">
-        <p><b>Horse Vertabrae</b></p>
-        <p>Ethically sourced Horse Vertabrae using dried and preserved flowers.</p>
-      </div>
-    </div>
-  </div>
-  
-  
-  <!-- Second Photo Grid-->
- 
-  <div class="w3-row-padding">
-    <div class="w3-third w3-container w3-margin-bottom">
-      <img src="/img/HorseVertebrae.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
-      <div class="w3-container w3-white">
-        <p><b>Horse Vertabrae</b></p>
-        <p>Ethically sourced Horse Vertabrae using dried and preserved flowers.</p>
-      </div>
-    </div>
-    <div class="w3-third w3-container w3-margin-bottom">
-      <img src="/img/IMG_7706.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
-      <div class="w3-container w3-white">
-        <p><b>Racoon Skull</b></p>
-        <p>Ethically sourced Raccoon Skull using preserved dried moss and flowers!</p>
-      </div>
-    </div>
-    <div class="w3-third w3-container">
-      <img src="/img/MacramePigSkull.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
-      <div class="w3-container w3-white">
-        <p><b>Macrame Pig Skull</b></p>
-        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-      </div>
-    </div>
-  </div>
-  </div>
-  <!--Third photo grid-->
-  <div id="page2" class="page" style="display: none;">
-   <div class="w3-row-padding">
-    <div class="w3-third w3-container w3-margin-bottom">
-      <img src="/img/skull1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
-      <div class="w3-container w3-white">
-        <p><b>Racoon Skull</b></p>
-        <p>Ethically sourced Racoon Skull. Using crystals brushed with metallica gold paint.</p>
-      </div>
-    </div>
-    <div class="w3-third w3-container w3-margin-bottom">
-      <img src="/img/skull2.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
-      <div class="w3-container w3-white">
-        <p><b>Roe Deer Skull</b></p>
-        <p>Ethically sourced Roe Deer Skull.</p>
-      </div>
-    </div>
-    <div class="w3-third w3-container">
-      <img src="/img/skull3.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
-      <div class="w3-container w3-white">
-          <p><b>Coyote Skull</b></p>
-        <p>Ethically sourced Coyote Skull.</p>
-      </div>
-    </div>
-  </div>
-  
-
-    <!--Third photo grid-->
-  
-   <div class="w3-row-padding">
-    <div class="w3-third w3-container w3-margin-bottom">
-      <img src="/img/snakevertabrae.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
-      <div class="w3-container w3-white">
-        <p><b>Gold Snake Vertabrae Hoops</b></p>
-        <p>Ethically sourced snake vertabrae sprayed with gold</p>
-      </div>
-    </div>
-    <div class="w3-third w3-container w3-margin-bottom">
-      <img src="/img/triangle.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
-      <div class="w3-container w3-white">
-        <p><b>Snake Vertabrae Triangle Earrings</b></p>
-        <p>Ethically sourced snake vertabrae earrings.</p>
-      </div>
-    </div>
-    <div class="w3-third w3-container">
-      <img src="/img/horseskull.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
-      <div class="w3-container w3-white">
-        <p><b>Horse Skull</b></p>
-        <p>Ethically sourced Horse Skull.</p>
-      </div>
-    </div>
-  </div>
-  </div>
-  </div>
-  <!-- Pagination -->
-  <div class="w3-center w3-padding-32">
-    <div class="w3-bar">
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
-       <a href="#" class="w3-bar-item w3-black w3-button" onclick="showPage(1)">1</a>
-      <a href="#" class="w3-bar-item w3-black w3-button" onclick="showPage(2)">2</a>
-       <a href="#" class="w3-bar-item w3-black w3-button" onclick="showPage(3)">3</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
-    </div>
-  </div>
-
-  <!-- image of cali -->
-
- 
-<div class="w3-row-padding w3-padding-16" id="about" style="display: flex; justify-content: center; align-items: center;">
-  <div class="w3-col m6">
-    <img src="/img/calibones.jpg" alt="Me" style="width:80%">
-  </div>
-</div>
-<h4 style="text-align: center;"><b>About Me</b></h4>
-
-  <div class="w3-container w3-padding-large" style="margin-bottom:32px; display: flex; justify-content: center; align-items: center; ">
-    
-    <p>My shop, City Bones, is a combination of macrame, and jewelry with animal bones incorporated.
-   
-    All bones are responsibly sourced and cleaned by me.
-    When I was a kid I started having my version of a burial service for any deceased animals I had found.
-    I did this as a way to honor the life they had and in my little child brain I felt I was showing
-  
-    them that I loved and cared for them. Over the years I started incorporating them into my art as a
-    way to appreciate  and honor them in a new way. And now I want others to appreciate their beauty as much as I do!
-    </p>
-    
-    
-    
-   @* <h4>How much I charge</h4>
-    <!-- Pricing Tables -->
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-third w3-margin-bottom">
-        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-black w3-xlarge w3-padding-32">Basic</li>
-          <li class="w3-padding-16">Web Design</li>
-          <li class="w3-padding-16">Photography</li>
-          <li class="w3-padding-16">1GB Storage</li>
-          <li class="w3-padding-16">Mail Support</li>
-          <li class="w3-padding-16">
-            <h2>$ 10</h2>
-            <span class="w3-opacity">per month</span>
-          </li>
-          <li class="w3-light-grey w3-padding-24">
-            <button class="w3-button w3-teal w3-padding-large w3-hover-black">Sign Up</button>
-          </li>
+        <ul>
+            <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+            <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+            <li><a asp-controller="Market" asp-action="Index">Markets</a></li>
+            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
         </ul>
-      </div>
-      
-      <div class="w3-third w3-margin-bottom">
-        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-teal w3-xlarge w3-padding-32">Pro</li>
-          <li class="w3-padding-16">Web Design</li>
-          <li class="w3-padding-16">Photography</li>
-          <li class="w3-padding-16">50GB Storage</li>
-          <li class="w3-padding-16">Endless Support</li>
-          <li class="w3-padding-16">
-            <h2>$ 25</h2>
-            <span class="w3-opacity">per month</span>
-          </li>
-          <li class="w3-light-grey w3-padding-24">
-            <button class="w3-button w3-teal w3-padding-large w3-hover-black">Sign Up</button>
-          </li>
-        </ul>
-      </div>
-      
-      <div class="w3-third">
-        <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-black w3-xlarge w3-padding-32">Premium</li>
-          <li class="w3-padding-16">Web Design</li>
-          <li class="w3-padding-16">Photography</li>
-          <li class="w3-padding-16">Unlimited Storage</li>
-          <li class="w3-padding-16">Endless Support</li>
-          <li class="w3-padding-16">
-            <h2>$ 25</h2>
-            <span class="w3-opacity">per month</span>
-          </li>
-          <li class="w3-light-grey w3-padding-24">
-            <button class="w3-button w3-teal w3-padding-large w3-hover-black">Sign Up</button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  
-  
-
-  @*<!-- Footer -->
-  <footer class="w3-container w3-padding-32 w3-dark-grey">
-  <div class="w3-row-padding">
-    <div class="w3-third">
-      <h3>FOOTER</h3>
-      <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
-    </div>
-  
-    <div class="w3-third">
-      <h3>BLOG POSTS</h3>
-      <ul class="w3-ul w3-hoverable">
-        <li class="w3-padding-16">
-          <img src="/w3images/workshop.jpg" class="w3-left w3-margin-right" style="width:50px">
-          <span class="w3-large">Lorem</span><br>
-          <span>Sed mattis nunc</span>
-        </li>
-        <li class="w3-padding-16">
-          <img src="/w3images/gondol.jpg" class="w3-left w3-margin-right" style="width:50px">
-          <span class="w3-large">Ipsum</span><br>
-          <span>Praes tinci sed</span>
-        </li> 
-      </ul>
     </div>
 
-    <div class="w3-third">
-      <h3>POPULAR TAGS</h3>
-      <p>
-        <span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">New York</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">London</span>
-        <span class="w3-tag w3-grey w3-small w3-margin-bottom">IKEA</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">NORWAY</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">DIY</span>
-        <span class="w3-tag w3-grey w3-small w3-margin-bottom">Ideas</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Baby</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Family</span>
-        <span class="w3-tag w3-grey w3-small w3-margin-bottom">News</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Clothing</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Shopping</span>
-        <span class="w3-tag w3-grey w3-small w3-margin-bottom">Sports</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Games</span>
-      </p>
+    <div class="main-content">
+        <h1 class="page-title"></h1>
+        <div class="product-grid">
+            @foreach (var product in Model)
+            {
+                <div class="product-card">
+                    <img src="@Url.Action("GetImage", "Product", new { id = product.Id })" alt="@product.Name" />
+                    <h3>@product.Name</h3>
+                    <p>@product.Description</p>
+                    <p class="price">$@product.Price.ToString("0.00")</p>
+                </div>
+            }
+        </div>
     </div>
-
-  </div>
-  </footer>
-  *@
-  
-
-<!-- End page content -->
-</div>
-
-<script>
-// Script to open and close sidebar
-function w3_open() {
-    document.getElementById("mySidebar").style.display = "block";
-    document.getElementById("myOverlay").style.display = "block";
-}
- 
-function w3_close() {
-    document.getElementById("mySidebar").style.display = "none";
-    document.getElementById("myOverlay").style.display = "none";
-}
-
-function showPage(pageNumber) {
-  // Hide all pages
-  var pages = document.getElementsByClassName("page");
-  for (var i = 0; i < pages.length; i++) {
-    pages[i].style.display = "none";
-  }
-
-  // Show the selected page
-  var pageId = "page" + pageNumber;
-  document.getElementById(pageId).style.display = "block";
-}
-</script>
-
 </body>
 </html>
-<style>
-    body, h1, h2, h3, h4, h5, h6 {
-        font-family: "Raleway", sans-serif
-    }
-</style>
