@@ -1,4 +1,5 @@
 ﻿using CityBonesPortfolio.Models;
+using CityBonesPortfolio.Repositories;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;

@@ -1,9 +1,9 @@
-﻿
+﻿using CityBonesPortfolio.Models;
 using Dapper;
 using MySql.Data.MySqlClient;
 using System.Data;
 
-namespace CityBonesPortfolio.Models
+namespace CityBonesPortfolio.Repositories
 {
     public class ProductRepository : IProductRepository
     {
@@ -29,8 +29,8 @@ namespace CityBonesPortfolio.Models
         {
             using var db = Connection;
             string sql = "SELECT Id, Name, Description, Price, ImageFileName FROM Product WHERE Id = @Id";
-                
-           return await db.QueryFirstOrDefaultAsync<ProductViewModel>(sql, new { Id = id });
+
+            return await db.QueryFirstOrDefaultAsync<ProductViewModel>(sql, new { Id = id });
         }
 
         public async Task AddProductAsync(ProductViewModel product)
@@ -41,6 +41,6 @@ namespace CityBonesPortfolio.Models
             await db.ExecuteAsync(sql, product);
         }
 
-        
+
     }
 }

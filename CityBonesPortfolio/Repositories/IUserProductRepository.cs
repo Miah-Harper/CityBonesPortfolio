@@ -1,4 +1,6 @@
-﻿namespace CityBonesPortfolio.Models
+﻿using CityBonesPortfolio.Models;
+
+namespace CityBonesPortfolio.Repositories
 {
     public interface IUserProductRepository
     {

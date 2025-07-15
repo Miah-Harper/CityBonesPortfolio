@@ -1,8 +1,8 @@
-﻿
+﻿using CityBonesPortfolio.Models;
 using Dapper;
 using MySql.Data.MySqlClient;
 
-namespace CityBonesPortfolio.Models
+namespace CityBonesPortfolio.Repositories
 {
     public class UserProductRepository : IUserProductRepository
     {
@@ -22,8 +22,8 @@ namespace CityBonesPortfolio.Models
         public async Task<Product> GetProductByIdAsync(int id)
         {
             using var conn = new MySqlConnection(_config.GetConnectionString("citybones"));
-            var product = await conn.QueryFirstOrDefaultAsync<Product>("SELECT * FROM Product WHERE Id = Id", 
-                new {Id = id });
+            var product = await conn.QueryFirstOrDefaultAsync<Product>("SELECT * FROM Product WHERE Id = Id",
+                new { Id = id });
             return product;
         }
     }

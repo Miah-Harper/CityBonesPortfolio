@@ -1,63 +1,27 @@
-﻿   @model IEnumerable<Market>
- 
+﻿@model IEnumerable<CityBonesPortfolio.Models.MarketViewModel>
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-
-
-
-<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CityBonesPortfolio</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contact Me</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-      
-
-<h2>Markets</h2>
-
-@if (User.IsInRole("Admin"))
-{
-    <a href="/Markets/Add" class="btn btn-success">+ Add Market</a>
+@{
+    ViewData["Title"] = "Market List";
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var market in Model)
+<h2>Available Markets</h2>
+
+@foreach (var market in Model)
+{
+    <div class="market-card" style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px;">
+        <h3>@market.Name</h3>
+        <p><strong>Location:</strong> @market.Location</p>
+        <p>@market.Description</p>
+
+        @if (market.ImageData != null && market.ImageData.Length > 0)
         {
-            <tr>
-                <td>@market.Name</td>
-                <td>@market.Location</td>
-                <td>@market.Description</td>
-            </tr>
+            var base64 = Convert.ToBase64String(market.ImageData);
+            var imageSrc = $"data:image/png;base64,{base64}";
+            <img src="@imageSrc" alt="Market Image" style="max-width: 300px;" />
         }
-    </tbody>
-</table>
-
-
+        else
+        {
+            <p><em>No image available</em></p>
+        }
+    </div>
+}

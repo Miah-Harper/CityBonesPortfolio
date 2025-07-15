@@ -27,7 +27,7 @@ else
                     <td>@item.Quantity</td>
                     <td>@(item.Price * item.Quantity).ToString("C")</td>
                     <td>
-                        <a href="@Url.Action("Remove", "Cart", new { id = item.CartId })" class="btn btn-danger btn-sm">Remove</a>
+                        <a href="@Url.Action("Remove", "Cart", new { id = item.ProductId })" class="btn btn-danger btn-sm">Remove</a>
                     </td>
                 </tr>
             }

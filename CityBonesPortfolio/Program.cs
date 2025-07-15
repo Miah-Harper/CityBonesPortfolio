@@ -1,4 +1,5 @@
 ﻿using CityBonesPortfolio.Models;
+using CityBonesPortfolio.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
