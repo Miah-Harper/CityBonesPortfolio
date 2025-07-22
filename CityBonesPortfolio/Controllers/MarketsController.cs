@@ -23,8 +23,9 @@ namespace CityBonesPortfolio.Controllers
         {
             var markets = _repo.GetAllMarkets();
 
-            var viewModels = markets.Select(x => new MarketViewModel
+            var viewModels = markets.Select(x => new MarketUserViewModel
             {
+                Id = x.Id,
                 Name = x.Name,
                 Description = x.Description,
                 Location = x.Location,
@@ -95,7 +96,7 @@ namespace CityBonesPortfolio.Controllers
                 Location = market.Location,
                 HasExistingImage = market.Image != null // Assuming Image is a byte array in the Market model
             };
-            return View(market);
+            return View(model);
         }
 
         [HttpPost]

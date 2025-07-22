@@ -137,7 +137,7 @@ namespace CityBonesPortfolio.Controllers
             else
             {
                 // Update without changing image
-                string sql = @"UPDATE Products SET Name = @Name, Description = @Description, Price = @Price
+                string sql = @"UPDATE Product SET Name = @Name, Description = @Description, Price = @Price
                 WHERE Id = @Id";
 
                 await connection.ExecuteAsync(sql, new

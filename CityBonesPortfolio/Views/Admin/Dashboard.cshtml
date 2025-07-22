@@ -2,8 +2,7 @@
 
 @if (User.IsInRole("Admin"))
 {
-    <a href="/Markets/Create" class="btn btn-primary mb-2">Add New Market</a>
-    <br />
+   
     <a asp-controller="Markets" asp-action="Index" class="btn btn-secondary">Manage Markets</a>
 }
 

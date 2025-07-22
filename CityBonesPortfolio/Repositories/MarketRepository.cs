@@ -3,6 +3,7 @@ using Dapper;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using System.Data;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace CityBonesPortfolio.Repositories
 {
@@ -29,10 +30,18 @@ namespace CityBonesPortfolio.Repositories
             return conn.Query<Market>(sql);
         }
 
-        public Task<Market> GetMarketByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
+       
+         public async Task<Market> GetMarketByIdAsync(int id)
+         {
+            using var conn = new MySqlConnection(_conn.ConnectionString);
+
+            var sql = "SELECT Id, Name, Description, Location, Image, ContentType FROM Markets WHERE Id = @Id";
+            var market = await conn.QueryFirstOrDefaultAsync<Market>(sql, new { Id = id });
+
+            return market;
+         }
+
+        
 
         public bool Update(Market model)
         {

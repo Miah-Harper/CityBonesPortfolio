@@ -1,10 +1,12 @@
-﻿@model IEnumerable<CityBonesPortfolio.Models.MarketViewModel>
+﻿@model IEnumerable<CityBonesPortfolio.Models.MarketUserViewModel>
 
 @{
     ViewData["Title"] = "Market List";
 }
 
 <h2>Available Markets</h2>
+
+
 
 @foreach (var market in Model)
 {
@@ -23,5 +25,7 @@
         {
             <p><em>No image available</em></p>
         }
+
+      
     </div>
 }

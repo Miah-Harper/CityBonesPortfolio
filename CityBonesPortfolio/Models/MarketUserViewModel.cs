@@ -2,21 +2,24 @@
 
 namespace CityBonesPortfolio.Models
 {
-    public class ProductViewModel
+    public class MarketUserViewModel
     {
+
         public int Id { get; set; }
 
         [Required]
         public string? Name { get; set; }
-        public string? Description { get; set; }
-        
-        [Required]
-        [Range(0.01,99999)]
-        public decimal Price { get; set; }
-        
-        //[Required]
-        public IFormFile? Image { get; set; }
 
-        
+        public string? Description { get; set; }
+
+        public string? Location { get; set; }
+
+        [Required]
+        public IFormFile Image { get; set; } //uploading
+
+        public byte[]? ImageData { get; set; } //displaying
+
+        public bool HasExistingImage { get; set; }
+
     }
 }
