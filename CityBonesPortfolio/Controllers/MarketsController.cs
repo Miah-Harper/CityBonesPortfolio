@@ -99,6 +99,7 @@ namespace CityBonesPortfolio.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, MarketViewModel model)

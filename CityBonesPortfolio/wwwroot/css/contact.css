@@ -1,5 +1,5 @@
 ﻿body {
-    background-image: url('/img/backgroundpic2.jpg');
+   background-image: url('/img/loginbackground.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     object-fit: contain;
@@ -49,4 +49,13 @@ body, h1, h2, h3, h4, h5, h6 {
     padding-top: 20px;
     overflow-y: auto;
     left: 0; /* Add this property to make it align to the left */
+}
+
+/* Form container styling */
+.contact-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    color: #333; /* ensures text is dark and readable */
 }

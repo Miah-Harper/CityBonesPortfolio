@@ -1,0 +1,75 @@
+﻿@* Views/Home/AboutMe.cshtml *@
+@{
+    ViewData["Title"] = "About Me";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/AboutMe.css" />
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+        <div class="container">
+          
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Markets" asp-action="Index">Markets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Contact" asp-action="Index">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>CityBones</h1>
+            <p>Transforming Nature’s Remnants into Story</p>
+        </div>
+    </section>
+
+    <!-- Bio Section -->
+    <section class="bio">
+        <h2>About Me</h2>
+        <p>Hello! I’m Calista, an artist in Columbus, OH. I work with animal bones to transform nature’s remnants into art that tells stories of life, memory, and the natural world. Every piece is a reflection of the unseen beauty in what remains.</p>
+    </section>
+
+    
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <h2>Connect with Me</h2>
+        <p>Follow my art journey on social media or get in touch for commissions!</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/city_bones/" target="_blank"><i class="bi bi-instagram"></i> Instagram</a>
+            <a href="https://www.facebook.com/profile.php?id=100022769647644" target="_blank"><i class="bi bi-shop"></i> Facebook</a>
+            <a href="mailto:calistaharper93@gmail.com"><i class="bi bi-envelope"></i> Email</a>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.js"></script>
+</body>
+</html>

@@ -34,21 +34,29 @@ button {
         opacity: 0.8;
     }
 
-.imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
+.avatar {
+    max-width: 200px; /* smaller width */
+    max-height: auto; /* smaller height */
+    border-radius: 50%; /* keeps it circular */
 }
 
-img.avatar {
-    width: 60%;
-    border-radius: 50%;
+/* Shorter Inputs */
+.custom-input {
+    max-width: 300px; /* Adjust width as needed */
+    margin: 0 auto; /* Center inputs */
 }
 
-span.psw {
-    float: right;
-    padding-top: 16px;
+/* Optional: Center wrapper styling */
+.center-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
 
+.custom-navbar {
+    background-color: white(0, 0, 0, 0.0);
+}
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
     span .psw {
