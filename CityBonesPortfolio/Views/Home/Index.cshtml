@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<CityBonesPortfolio.Models.Product>
-
+@{
+    var cartCount = CityBonesPortfolio.Helpers.CartManager.GetCartCount(Context.Session);
+    var cartIcon = "🛒";
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,18 +15,26 @@
         <div class="sidebar-logo">
             <img src="~/img/cityboneslogo.jpeg" alt="CityBones Logo" />
         </div>
-      
         <ul>
             <li><a asp-controller="AboutMe" asp-action="Index">About Me</a></li>
             <li><a asp-controller="Markets" asp-action="Index">Markets</a></li>
             <li><a asp-controller="Account" asp-action="Login">Login</a></li>
             <li><a asp-controller="Account" asp-action="Register">Register</a></li>
             <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
+            <li>
+                <a asp-controller="Cart" asp-action="Index">
+                    @cartIcon View Cart
+                    @if (cartCount > 0)
+                    {
+                        <span class="cart-count">(@cartCount)</span>
+                    }
+                </a>
+            </li>
         </ul>
     </div>
 
     <div class="main-content">
-        <h1 class="page-title"></h1>
+        <h1 class="page-title">Our Products</h1>
         <div class="product-grid">
             @foreach (var product in Model)
             {
@@ -32,6 +43,14 @@
                     <h3>@product.Name</h3>
                     <p>@product.Description</p>
                     <p class="price">$@product.Price.ToString("0.00")</p>
+
+                    <form asp-controller="Cart" asp-action="Add" method="post">
+                        <input type="hidden" name="id" value="@product.Id" />
+                        <input type="hidden" name="name" value="@product.Name" />
+                        <input type="hidden" name="price" value="@product.Price" />
+                        <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
                 </div>
             }
         </div>

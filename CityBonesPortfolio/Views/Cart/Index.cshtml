@@ -1,0 +1,84 @@
+﻿@model List<CartItem>
+
+@{
+    ViewData["Title"] = "Your Cart";
+    var cartCount = Model?.Count ?? 0;
+    var cartIcon = "<i class='fa fa-shopping-cart'></i>"; // optional cart icon
+    decimal grandTotal = Model.Sum(item => item.Price * item.Quantity);
+}
+
+<!-- Link to external CSS -->
+<link rel="stylesheet" href="~/css/CartIndex.css" />
+
+<div class="layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <img src="~/img/cityboneslogo.jpeg" alt="CityBones Logo" />
+        </div>
+        <ul>
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li><a asp-controller="AboutMe" asp-action="Index">About Me</a></li>
+            <li><a asp-controller="Markets" asp-action="Index">Markets</a></li>
+            <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+            <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+            <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
+            <li>
+                <a asp-controller="Cart" asp-action="Index">
+                    @Html.Raw(cartIcon) View Cart
+                    @if (cartCount > 0)
+                    {
+                        <span class="cart-count">(@cartCount)</span>
+                    }
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Cart Content -->
+    <div class="cart-container">
+        <h2>Your Cart</h2>
+
+        @if (!Model.Any())
+        {
+            <p class="empty">Your cart is empty.</p>
+        }
+        else
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td data-label="Product">@item.ProductName</td>
+                            <td data-label="Price">@item.Price.ToString("C")</td>
+                            <td data-label="Qty">@item.Quantity</td>
+                            <td data-label="Total">@((item.Price * item.Quantity).ToString("C"))</td>
+                            <td data-label="Action">
+                                <a href="@Url.Action("Remove", "Cart", new { id = item.ProductId })" class="btn btn-danger btn-sm">Remove</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" style="text-align:right; font-weight:bold;">Grand Total:</td>
+                        <td>@grandTotal.ToString("C")</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <a href="/Checkout" class="btn btn-success">Proceed to Checkout</a>
+        }
+    </div>
+</div>
