@@ -1,6 +1,8 @@
 ﻿@model Contact
+
 @{
-    ViewData["Title"] = "Home Page";
+    var cartCount = CityBonesPortfolio.Helpers.CartManager.GetCartCount(Context.Session);
+    var cartIcon = "🛒";
 }
 
 <!DOCTYPE html>
@@ -71,10 +73,20 @@
                         <a class="nav-link" asp-controller="AboutMe" asp-action="Index">About Me</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                        <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Contact" asp-action="Index">Contact</a>
+                        <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                    </li>
+                   
+                    <li class="nav-link active">
+                        <a asp-controller="Cart" asp-action="Index" class="text-black text-decoration-none">
+                            @cartIcon View Cart
+                            @if (cartCount > 0)
+                            {
+                                <span class="cart-count">(@cartCount)</span>
+                            }
+                        </a>
                     </li>
                 </ul>
             </div>

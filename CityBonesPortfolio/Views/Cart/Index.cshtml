@@ -2,16 +2,13 @@
 
 @{
     ViewData["Title"] = "Your Cart";
-    var cartCount = Model?.Count ?? 0;
-    var cartIcon = "<i class='fa fa-shopping-cart'></i>"; // optional cart icon
     decimal grandTotal = Model.Sum(item => item.Price * item.Quantity);
 }
 
-<!-- Link to external CSS -->
 <link rel="stylesheet" href="~/css/CartIndex.css" />
 
 <div class="layout">
-    <!-- Sidebar -->
+    <!-- Sidebar / Navbar -->
     <div class="sidebar">
         <div class="sidebar-logo">
             <img src="~/img/cityboneslogo.jpeg" alt="CityBones Logo" />
@@ -23,15 +20,6 @@
             <li><a asp-controller="Account" asp-action="Login">Login</a></li>
             <li><a asp-controller="Account" asp-action="Register">Register</a></li>
             <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
-            <li>
-                <a asp-controller="Cart" asp-action="Index">
-                    @Html.Raw(cartIcon) View Cart
-                    @if (cartCount > 0)
-                    {
-                        <span class="cart-count">(@cartCount)</span>
-                    }
-                </a>
-            </li>
         </ul>
     </div>
 
@@ -45,40 +33,47 @@
         }
         else
         {
-            <table>
+            <table class="cart-table">
                 <thead>
                     <tr>
+                        <th>Image</th>
                         <th>Product</th>
                         <th>Price</th>
                         <th>Qty</th>
                         <th>Total</th>
-                        <th></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td data-label="Product">@item.ProductName</td>
-                            <td data-label="Price">@item.Price.ToString("C")</td>
-                            <td data-label="Qty">@item.Quantity</td>
-                            <td data-label="Total">@((item.Price * item.Quantity).ToString("C"))</td>
-                            <td data-label="Action">
-                                <a href="@Url.Action("Remove", "Cart", new { id = item.ProductId })" class="btn btn-danger btn-sm">Remove</a>
+                            <td>
+                                <img src="@(item.ImageData != null ? $"data:{item.ContentType};base64,{Convert.ToBase64String(item.ImageData)}" : "/img/placeholder.png")"
+                                     alt="@item.ProductName"
+                                     style="width:80px;height:auto;border-radius:6px;" />
+                            </td>
+                            <td>@item.ProductName</td>
+                            <td>@item.Price.ToString("C")</td>
+                            <td>@item.Quantity</td>
+                            <td>@(item.Price * item.Quantity).ToString("C")</td>
+                            <td>
+                                <a asp-controller="Cart" asp-action="Remove" asp-route-id="@item.ProductId"
+                                   class="btn btn-danger btn-sm">Remove</a>
                             </td>
                         </tr>
                     }
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="3" style="text-align:right; font-weight:bold;">Grand Total:</td>
+                        <td colspan="4" style="text-align:right; font-weight:bold;">Grand Total:</td>
                         <td>@grandTotal.ToString("C")</td>
                         <td></td>
                     </tr>
                 </tfoot>
             </table>
 
-            <a href="/Checkout" class="btn btn-success">Proceed to Checkout</a>
+            <a asp-controller="Checkout" asp-action="Index" class="btn btn-success mt-3">Proceed to Checkout</a>
         }
     </div>
 </div>

@@ -1,5 +1,6 @@
 ﻿using CityBonesPortfolio.Models;
 using CityBonesPortfolio.Repositories;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,11 +18,18 @@ builder.Services.AddScoped<IProductRepository>(sp =>
     new ProductRepository(builder.Configuration.GetConnectionString("citybones")));
 builder.Services.AddScoped<IUserProductRepository, UserProductRepository>();
 
+StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
 // -------------------------
 // Session Middleware
 // -------------------------
 builder.Services.AddDistributedMemoryCache(); // Required for session
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromDays(7); // cart lasts 7 days
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 builder.Services.AddSession(options =>
 {

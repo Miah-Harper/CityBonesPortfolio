@@ -71,3 +71,17 @@
     .btn-submit:hover {
         background-color: #0056b3;
     }
+
+.cart-link {
+    text-decoration: none !important;
+    border-bottom: none !important;
+    box-shadow: none !important; /* just in case */
+}
+
+    .cart-link:hover {
+        color: #ddd; /* lighter white on hover */
+    }
+
+.navbar .nav-item a {
+    text-decoration: none !important;
+}

@@ -16,7 +16,7 @@ namespace CityBonesPortfolio.Controllers
             _config = config;
         }
 
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Create()
         {
@@ -74,24 +74,24 @@ namespace CityBonesPortfolio.Controllers
         {
             using var conn = new MySqlConnection(_config.GetConnectionString("citybones"));
             var product = await conn.QueryFirstOrDefaultAsync<Product>(
-                "SELECT ContentType, ImageData FROM Product WHERE Id = @Id", 
-                new {Id = id});
+                "SELECT ContentType, ImageData FROM Product WHERE Id = @Id",
+                new { Id = id });
 
-            if(product == null || product.ImageData == null)
+            if (product == null || product.ImageData == null)
                 return NotFound();
 
             return File(product.ImageData, product.ContentType);
         }
 
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             using var conn = new MySqlConnection(_config.GetConnectionString("citybones"));
-            var product = await conn.QueryFirstOrDefaultAsync<Product>("SELECT * FROM Product WHERE Id = @Id" ,
-                new { Id = id});
+            var product = await conn.QueryFirstOrDefaultAsync<Product>("SELECT * FROM Product WHERE Id = @Id",
+                new { Id = id });
 
-            if(product == null)
+            if (product == null)
                 return NotFound();
 
             var model = new ProductViewModel
@@ -163,6 +163,6 @@ namespace CityBonesPortfolio.Controllers
             return RedirectToAction("Index");
         }
 
-    
+
     }
 }

@@ -1,21 +1,17 @@
 ﻿using CityBonesPortfolio.Models;
+using System.Text.Json;
 
 namespace CityBonesPortfolio.Helpers
 {
     public class CartManager
     {
         private const string CartSessionKey = "Cart";
+        private const string SavedSessionKey = "SavedItems";
 
         public static List<CartItem> GetCart(ISession session)
         {
-           var cart = session.GetObjectFromJson<List<CartItem>>(CartSessionKey);
-
-            if(cart == null)
-            {
-                cart = new List<CartItem>();
-                session.SetObjectAsJson(CartSessionKey, cart);
-            }
-            return cart;
+            var data = session.GetString(CartSessionKey);
+            return data == null ? new List<CartItem>() : JsonSerializer.Deserialize<List<CartItem>>(data);
         }
 
         public static void AddToCart(ISession session, CartItem item)
@@ -53,6 +49,33 @@ namespace CityBonesPortfolio.Helpers
         {
             var cart = GetCart(session);
             return cart.Sum(i => i.Quantity);
+        }
+
+        public static List<CartItem>GetSavedItems(ISession session)
+        {
+            var data = session.GetString(SavedSessionKey);
+            return data == null? new List<CartItem>() : JsonSerializer.Deserialize<List<CartItem>>(data);
+        }
+
+        public static void SaveItem(ISession session, CartItem item)
+        {
+            var saved = GetSavedItems(session);
+            saved.Add(item);
+            session.SetString(SavedSessionKey, JsonSerializer.Serialize(saved));
+
+        }
+
+        public static void MoveToCart(ISession session, int itemId)
+        {
+            var saved = GetSavedItems(session);
+            var item = saved.Find(i => i.CartId == itemId);
+
+            if(item != null)
+            {
+                saved.Remove(item);
+                session.SetString(SavedSessionKey, JsonSerializer.Serialize(saved));
+                AddToCart(session, item);
+            }
         }
     }
 }

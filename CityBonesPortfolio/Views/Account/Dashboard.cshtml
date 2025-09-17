@@ -1,7 +1,54 @@
-﻿@{
+﻿@model CityBonesPortfolio.Models.DashBoard
+
+@{
     ViewBag.Title = "User Dashboard";
+
+    // Calculate cart count
+    var cartCount = Model?.CartItems?.Sum(i => i.Quantity) ?? 0;
+
+    // Optional cart icon
+    var cartIcon = "<i class='bi bi-cart'></i>"; // Using Bootstrap Icons
 }
 
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">MyStore</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Markets" asp-action="Index">Markets</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="AboutMe" asp-action="Index">About Me</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Account" asp-action="Register">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-black text-decoration-none" asp-controller="Cart" asp-action="Index">
+                        @Html.Raw(cartIcon) View Cart
+                        @if (cartCount > 0)
+                        {
+                            <span class="cart-count">(@cartCount)</span>
+                        }
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- DASHBOARD CONTENT -->
 <div class="container mt-4">
     <h2>Welcome, @User.Identity.Name!</h2>
 
@@ -10,11 +57,29 @@
         <div class="col-md-6">
             <h4>My Cart</h4>
             <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between">
-                    Item 1
-                    <button class="btn btn-sm btn-danger">Remove</button>
-                </li>
-                <!-- Repeat for each item -->
+                @if (Model?.CartItems != null && Model.CartItems.Any())
+                {
+                    foreach (var item in Model.CartItems)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            @item.ProductName (@item.Quantity)
+                            <div>
+                                <form method="post" asp-action="RemoveFromCart" class="d-inline">
+                                    <input type="hidden" name="id" value="@item.ProductId" />
+                                    <button class="btn btn-sm btn-danger">Remove</button>
+                                </form>
+                                <form method="post" asp-action="SaveForLater" class="d-inline ms-2">
+                                    <input type="hidden" name="id" value="@item.ProductId" />
+                                    <button class="btn btn-sm btn-secondary">Save</button>
+                                </form>
+                            </div>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item">Your cart is empty.</li>
+                }
             </ul>
         </div>
 
@@ -22,32 +87,26 @@
         <div class="col-md-6">
             <h4>Saved for Later</h4>
             <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between">
-                    Item A
-                    <button class="btn btn-sm btn-primary">Move to Cart</button>
-                </li>
+                @if (Model?.SavedItems != null && Model.SavedItems.Any())
+                {
+                    foreach (var item in Model.SavedItems)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            @item.ProductName
+                            <form method="post" asp-action="MoveToCart">
+                                <input type="hidden" name="id" value="@item.ProductId" />
+                                <button class="btn btn-sm btn-primary">Move to Cart</button>
+                            </form>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item">No saved items.</li>
+                }
             </ul>
         </div>
     </div>
 
-    <!-- Checkout Button -->
-    <a href="/Checkout/Checkout" class="btn btn-success">Go to Checkout</a>
-
-
-    <!-- Browse/Add Section (Simplified) -->
-    <div class="mt-5">
-        <h4>Browse Items</h4>
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">New Item</h5>
-                        <button class="btn btn-outline-success">Add to Cart</button>
-                        <button class="btn btn-outline-secondary">Save</button>
-                    </div>
-                </div>
-            </div>
-         
-        </div>
-    </div>
+    <a href="/Checkout/Checkout" class="btn btn-success mt-3">Go to Checkout</a>
 </div>
